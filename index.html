@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Flame OS - Simulator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="phone-device">
+        <div class="hw-btn btn-power" onclick="pressPower()"></div>
+        <div class="hw-btn btn-vol-up" onclick="pressVolume('up')"></div>
+        <div class="hw-btn btn-vol-down" onclick="pressVolume('down')"></div>
+
+        <div id="phone-screen">
+            <div id="screen-blackout"></div>
+            <div id="volume-hud"><div id="volume-level"></div></div>
+            <div id="island"><span id="island-text">Flame OS</span></div>
+
+            <div class="status-bar">
+                <span class="clock-display">00:00</span>
+                <div>📶 🔋 100%</div>
+            </div>
+
+            <div id="home-screen">
+                <div class="apps-grid" id="main-apps-grid">
+                    <div class="app-icon" onclick="openApp('app-store')">
+                        <div class="icon-box" style="background: linear-gradient(135deg, #007aff, #00bfff);">🅰️</div><span>App Store</span>
+                    </div>
+                    <div class="app-icon" onclick="openApp('app-settings')">
+                        <div class="icon-box" style="background: linear-gradient(135deg, #8e8e93, #c7c7cc);">⚙️</div><span>Setări</span>
+                    </div>
+                    <div class="app-icon" onclick="openApp('app-calculator')">
+                        <div class="icon-box" style="background: linear-gradient(135deg, #ff9500, #ffcc00);">📊</div><span>Calculator</span>
+                    </div>
+                    <div class="app-icon" onclick="openApp('app-nora')">
+                        <div class="icon-box" style="background: linear-gradient(135deg, #5856d6, #af52de);">🤖</div><span>NoraAI</span>
+                    </div>
+                    <div class="app-icon" onclick="openApp('app-meteo')">
+                        <div class="icon-box" style="background: linear-gradient(135deg, #34aadc, #5ac8fa);">🌤️</div><span>Meteo</span>
+                    </div>
+                    <div class="app-icon" onclick="openApp('app-flappy')">
+                        <div class="icon-box" style="background: linear-gradient(135deg, #fc3d39, #ff9500);">🐦</div><span>Flappy</span>
+                    </div>
+                    <div class="app-icon" onclick="openApp('app-minecraft')">
+                        <div class="icon-box" style="background: linear-gradient(135deg, #4cd964, #28cd41);">⛏️</div><span>Craft2D</span>
+                    </div>
+                </div>
+
+                <div class="dock">
+                    <div class="icon-box" style="background: linear-gradient(135deg, #25d366, #128c7e);" onclick="triggerIslandNotification('📞 Fără SIM')">📞</div>
+                    <div class="icon-box" style="background: linear-gradient(135deg, #34b7f1, #075e54);" onclick="triggerIslandNotification('💬 Niciun mesaj')">💬</div>
+                    <div class="icon-box" style="background: linear-gradient(135deg, #ff2d55, #ff3b30);" onclick="triggerIslandNotification('🎵 Muzică oprită')">🎵</div>
+                </div>
+            </div>
+
+            <div id="app-dynamic" class="app-window">
+                <div class="app-header"><span id="dynamic-title">Aplicație</span><button class="close-btn" onclick="goHome()">✕</button></div>
+                <div class="app-content" id="dynamic-content" style="text-align:center; padding:20px 5px;"></div>
+            </div>
+
+            <div id="app-store" class="app-window">
+                <div class="app-header"><span>App Store</span><button class="close-btn" onclick="goHome()">✕</button></div>
+                <div class="app-content" style="background: #ffffff;">
+                    <div class="store-title-sec">Aplicații Noi</div>
+                    <div class="store-item">
+                        <div class="store-item-left"><div class="store-item-icon">🎬</div><div class="store-item-info"><h4>TikTok 2D</h4><p>Clipuri scurte</p></div></div>
+                        <button class="btn-get" id="btn-tk" onclick="installAppEngine('tk', 'TikTok 2D', '🎬')">OBȚINE</button>
+                    </div>
+                    <div class="store-item">
+                        <div class="store-item-left"><div class="store-item-icon">💬</div><div class="store-item-info"><h4>Flame Chat</h4><p>Mesaje instanțiale</p></div></div>
+                        <button class="btn-get" id="btn-fc" onclick="installAppEngine('fc', 'Flame Chat', '💬')">OBȚINE</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="app-settings" class="app-window">
+                <div class="app-header"><span>Setări</span><button class="close-btn" onclick="goHome()">✕</button></div>
+                <div class="app-content">
+                    <div class="settings-row"><span>Mod Întunecat</span><input type="checkbox" checked onchange="toggleDarkMode(this.checked)"></div>
+                    <div class="settings-row"><span>Versiune OS</span><b>Flame v3.0 Compact</b></div>
+                </div>
+            </div>
+
+            <div id="app-calculator" class="app-window">
+                <div class="app-header"><span>Calculator</span><button class="close-btn" onclick="goHome()">✕</button></div>
+                <div class="app-content">
+                    <div id="calc-screen">0</div>
+                    <div class="calc-buttons">
+                        <button onclick="calcClear()">C</button><button onclick="calcInput('/')" class="op">/</button><button onclick="calcInput('*')" class="op">*</button><button onclick="calcInput('-')" class="op">-</button>
+                        <button onclick="calcInput('7')">7</button><button onclick="calcInput('8')">8</button><button onclick="calcInput('9')">9</button><button onclick="calcInput('+')" class="op">+</button>
+                        <button onclick="calcInput('4')">4</button><button onclick="calcInput('5')">5</button><button onclick="calcInput('6')">6</button><button onclick="calcEval()" class="op" style="grid-row: span 2; height:100%;">=</button>
+                        <button onclick="calcInput('1')">1</button><button onclick="calcInput('2')">2</button><button onclick="calcInput('3')">3</button>
+                        <button onclick="calcInput('0')" style="grid-column: span 3;">0</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="app-nora" class="app-window">
+                <div class="app-header"><span>Nora AI</span><button class="close-btn" onclick="goHome()">✕</button></div>
+                <div class="app-content">
+                    <div class="chat-container">
+                        <div class="chat-messages" id="nora-chat-box"><div class="msg-bot">Salut! Sunt Nora AI. Cu ce te ajut?</div></div>
+                        <div class="chat-input-row">
+                            <input type="text" id="nora-text-input" placeholder="Scrie...">
+                            <button onclick="sendNoraMessage()">Ok</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="app-meteo" class="app-window">
+                <div class="app-header"><span>Meteo</span><button class="close-btn" onclick="goHome()">✕</button></div>
+                <div class="app-content" style="text-align:center; background: linear-gradient(to bottom, #3a7bd5, #3a6073); color:#fff; border-bottom-left-radius:28px; border-bottom-right-radius:28px;">
+                    <h4>Chisinau</h4><h1 style="font-size:28px; font-weight:300;">28°C</h1><p>🌤️ Senin</p>
+                </div>
+            </div>
+
+            <div id="app-flappy" class="app-window">
+                <div class="app-header"><span>Flappy Bird</span><button class="close-btn" onclick="goHome()">✕</button></div>
+                <div class="app-content"><canvas id="flappyCanvas" width="210" height="220"></canvas></div>
+            </div>
+
+            <div id="app-minecraft" class="app-window">
+                <div class="app-header"><span>Craft 2D</span><button class="close-btn" onclick="goHome()">✕</button></div>
+                <div class="app-content">
+                    <canvas id="minecraftCanvas" width="200" height="200" onclick="handleMinecraftClick(event)"></canvas>
+                    <div style="display:flex; justify-content:center; gap:2px; margin-top:4px;">
+                        <button onclick="changeMinecraftBlock(1)" style="font-size:8px; padding:4px;">🌱 Iarbă</button>
+                        <button onclick="changeMinecraftBlock(2)" style="font-size:8px; padding:4px;">🟫 Pământ</button>
+                        <button onclick="changeMinecraftBlock(3)" style="font-size:8px; padding:4px;">🧱 Piatră</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="home-indicator" onclick="goHome()"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
