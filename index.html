@@ -17,11 +17,11 @@
             <div id="screen-blackout"></div>
             <div id="volume-hud"><div id="volume-level"></div></div>
             
-            <div id="island"><span id="island-text">Flame OS</span></div>
+            <div id="circular-notch"><span id="notch-text"></span></div>
 
             <div class="status-bar">
-                <span class="clock-display">00:00</span>
-                <div>📶 🔋 56%</div>
+                <div class="status-left clock-display">00:00</div>
+                <div class="status-right">📶 100% 🔋</div>
             </div>
 
             <div id="lock-screen" 
@@ -32,30 +32,28 @@
                 
                 <div class="lock-clock clock-display">00:00</div>
                 <div class="lock-date">Sâmbătă, 27 iunie</div>
-                
                 <div class="lock-hint" onclick="unlockPhone()">Apasă sau glisează pentru deblocare</div>
-                
                 <div class="lock-footer">
-                    <div class="lock-btn" onclick="triggerIslandNotification('🔦 Lanternă pornită')">🔦</div>
+                    <div class="lock-btn" onclick="triggerNotchNotification('🔦 Lanternă pornită')">🔦</div>
                     <div class="lock-btn" onclick="openApp('app-camera'); unlockPhone();">📷</div>
                 </div>
             </div>
 
             <div id="home-screen">
                 <div class="apps-grid" id="main-apps-grid">
-                    <div class="app-icon" onclick="openApp('app-store')"><div class="icon-box" style="background: linear-gradient(135deg, #007aff, #00bfff);">🅰️</div><span>App Store</span></div>
-                    <div class="app-icon" onclick="openApp('app-settings')"><div class="icon-box" style="background: linear-gradient(135deg, #8e8e93, #c7c7cc);">⚙️</div><span>Setări</span></div>
-                    <div class="app-icon" onclick="openApp('app-calculator')"><div class="icon-box" style="background: linear-gradient(135deg, #ff9500, #ffcc00);">📊</div><span>Calculator</span></div>
-                    <div class="app-icon" onclick="openApp('app-nora')"><div class="icon-box" style="background: linear-gradient(135deg, #5856d6, #af52de);">🤖</div><span>NoraAI</span></div>
-                    <div class="app-icon" onclick="openApp('app-camera')"><div class="icon-box" style="background: linear-gradient(135deg, #a8e063, #56ab2f);">📸</div><span>Cameră</span></div>
-                    <div class="app-icon" onclick="openApp('app-meteo')"><div class="icon-box" style="background: linear-gradient(135deg, #34aadc, #5ac8fa);">🌤️</div><span>Meteo</span></div>
-                    <div class="app-icon" onclick="openApp('app-flappy')"><div class="icon-box" style="background: linear-gradient(135deg, #fc3d39, #ff9500);">🐦</div><span>Flappy</span></div>
-                    <div class="app-icon" onclick="openApp('app-minecraft')"><div class="icon-box" style="background: linear-gradient(135deg, #4cd964, #28cd41);">⛏️</div><span>Craft2D</span></div>
+                    <div class="app-icon" onclick="openApp('app-store', this)"><div class="icon-box" style="background: linear-gradient(135deg, #007aff, #00bfff);">🅰️</div><span>App Store</span></div>
+                    <div class="app-icon" onclick="openApp('app-settings', this)"><div class="icon-box" style="background: linear-gradient(135deg, #8e8e93, #c7c7cc);">⚙️</div><span>Setări</span></div>
+                    <div class="app-icon" onclick="openApp('app-calculator', this)"><div class="icon-box" style="background: linear-gradient(135deg, #ff9500, #ffcc00);">📊</div><span>Calculator</span></div>
+                    <div class="app-icon" onclick="openApp('app-nora', this)"><div class="icon-box" style="background: linear-gradient(135deg, #5856d6, #af52de);">🤖</div><span>NoraAI</span></div>
+                    <div class="app-icon" onclick="openApp('app-camera', this)"><div class="icon-box" style="background: linear-gradient(135deg, #a8e063, #56ab2f);">📸</div><span>Cameră</span></div>
+                    <div class="app-icon" onclick="openApp('app-meteo', this)"><div class="icon-box" style="background: linear-gradient(135deg, #34aadc, #5ac8fa);">🌤️</div><span>Meteo</span></div>
+                    <div class="app-icon" onclick="openApp('app-flappy', this)"><div class="icon-box" style="background: linear-gradient(135deg, #fc3d39, #ff9500);">🐦</div><span>Flappy</span></div>
+                    <div class="app-icon" onclick="openApp('app-minecraft', this)"><div class="icon-box" style="background: linear-gradient(135deg, #4cd964, #28cd41);">⛏️</div><span>Craft2D</span></div>
                 </div>
                 <div class="dock">
-                    <div class="icon-box" style="background: linear-gradient(135deg, #25d366, #128c7e);" onclick="triggerIslandNotification('📞 Fără SIM')">📞</div>
-                    <div class="icon-box" style="background: linear-gradient(135deg, #34b7f1, #075e54);" onclick="triggerIslandNotification('💬 Niciun mesaj')">💬</div>
-                    <div class="icon-box" style="background: linear-gradient(135deg, #ff2d55, #ff3b30);" onclick="triggerIslandNotification('🎵 Muzică oprită')">🎵</div>
+                    <div class="icon-box" style="background: linear-gradient(135deg, #25d366, #128c7e);" onclick="triggerNotchNotification('📞 Fără SIM')">📞</div>
+                    <div class="icon-box" style="background: linear-gradient(135deg, #34b7f1, #075e54);" onclick="triggerNotchNotification('💬 Niciun mesaj')">💬</div>
+                    <div class="icon-box" style="background: linear-gradient(135deg, #ff2d55, #ff3b30);" onclick="triggerNotchNotification('🎵 Muzică oprită')">🎵</div>
                 </div>
             </div>
 
@@ -69,7 +67,7 @@
                 <div class="app-content">
                     <div class="settings-row"><span>Mod Întunecat</span><input type="checkbox" checked onchange="toggleDarkMode(this.checked)"></div>
                     <div class="settings-row"><span>Luminozitate</span><input type="range" min="20" max="100" value="100" oninput="changeBrightness(this.value)"></div>
-                    <div class="settings-row"><span>Culoare Dynamic Island</span><input type="color" value="#000000" oninput="changeIslandColor(this.value)"></div>
+                    <div class="settings-row"><span>Culoare Notch / Cameră</span><input type="color" value="#000000" oninput="changeNotchColor(this.value)"></div>
                     <div class="settings-row"><span>Mod Rotire 3D Telefon</span><input type="checkbox" onchange="toggle3DMode(this.checked)"></div>
                 </div>
             </div>
@@ -90,7 +88,7 @@
                 <div class="app-content" style="padding:0; background:#000; display:flex; flex-direction:column; justify-content:space-between;">
                     <video id="camera-feed" autoplay playsinline style="width:100%; height:75%; object-fit:cover; background:#222;"></video>
                     <div style="height:25%; display:flex; align-items:center; justify-content:center; background:#000;">
-                        <div style="width:60px; height:60px; background:#fff; border-radius:50%; border:4px solid #aaa; cursor:pointer;" onclick="triggerIslandNotification('📸 Poză Salvată!')"></div>
+                        <div style="width:60px; height:60px; background:#fff; border-radius:50%; border:4px solid #aaa; cursor:pointer;" onclick="triggerNotchNotification('📸 Poză Salvată!')"></div>
                     </div>
                 </div>
             </div>
